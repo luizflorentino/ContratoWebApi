@@ -9,7 +9,6 @@ import br.com.preparasantarita.ContratoWeb.model.Modulo;
 public class ContratoWebApplication {
 
 	public static void main(String[] args) {
-		Modulo m = new Modulo();
 		SpringApplication.run(ContratoWebApplication.class, args);
 	}
 
