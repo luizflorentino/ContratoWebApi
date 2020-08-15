@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html layout:decorate="~{shared/layout}">
+<head>
+<meta charset="UTF-8">
+<title>Cadastro de projeto</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<dl class="row">
+			<dt class="col-sm-3 text-right">Nome do projeto:</dt>
+			<dd class="col-sm-9" th:text=${projeto.nome}></dd>
+			<dt class="col-sm-3 text-right">Número de iterações:</dt>
+			<dd class="col-sm-9" th:text=${projeto.numeroDeIteracoes}></dd>
+			<dt class="col-sm-3 text-right">Nome das iterações:</dt>
+			<dd class="col-sm-9" th:text=${projeto.nomeDaIteracao}></dd>
+			<dt class="col-sm-3 text-right">Data de início:</dt>
+			<dd class="col-sm-9" th:text=${projeto.dataInicio}></dd>
+			<dt class="col-sm-3 text-right">Atividades cadastradas:</dt>
+			<dd class="col-sm-3" th:text=${projeto.atividades.size()}></dd>
+			<dd class="col-sm-3">
+				<a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+					aria-controls="collapseExample">Exibir Atividades </a>
+			</dd>
+		</dl>
+		<div class="row">
+			<form th:action="@{/projetos/__${projeto.id}__/importarAtividades}" enctype="multipart/form-data" th:method="post"
+				class="form-inline">
+				<div class="form-group mb-2">
+					<label for="file">CSV com as atividades</label> <input type="file" class="form-control-file" name="file"></input>
+				</div>
+				<button type="submit" class="btn btn-primary mb-2">Enviar</button>
+			</form>
+		</div>
+		<div class="row">
+			<div class="collapse" id="collapseExample" th:if="${projeto.atividades.size() > 0}">
+				<div class="card card-body">
+					<table class="table table-hover table-striped">
+						<thead>
+							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">Descrição</th>
+								<th scope="col">Tempo de Ciclo</th>
+								<th scope="col">Data de Início</th>
+								<th scope="col">Número de Equipes</th>
+								<th scope="col">Pulmão</th>
+								<th scope="col">Descendente</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="atividade : ${projeto.atividades}">
+								<td th:text="${atividade.userId}" />
+								<td th:text="${atividade.descricao}" />
+								<td th:text="${atividade.tempoDeCiclo}" />
+								<td th:text="${atividade.dataInicio}" />
+								<td th:text="${atividade.numeroDeEquipes}" />
+								<td th:text="${atividade.pulmao}" />
+								<td th:text="${atividade.descendente}" />
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<a class="btn btn-primary" th:href="@{/projetos/__${projeto.id}__/download}">Download</a>
+		</div>
+	</div>
+</body>
+</html>

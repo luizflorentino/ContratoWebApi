@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html layout:decorate="~{shared/layout}">
+<head>
+<meta charset="UTF-8">
+<title>Cadastro de projeto</title>
+</head>
+<body>
+	<!-- /* Content of this page will be decorated by the elements of layout.html (task/layout) */ -->
+	<div layout:fragment="content">
+		<form th:action="@{/projetos/__${projetoForm.id}__}" th:object="${projetoForm}" th:method="put">
+			<input type="hidden" class="form-control" th:field="*{id}"></input>
+			<div class="form-group">
+				<label for="nome">Nome do projeto</label> 
+				<input type="text" class="form-control" th:field="*{nome}"></input>
+				<p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="invalid-feedback d-block"></p>
+			</div>
+			<div class="form-group">
+				<label for="nomeDaIteracao">Nome para os pavimentos</label> 
+				<input type="text" class="form-control" th:field="*{nomeDaIteracao}"></input>
+				<p th:if="${#fields.hasErrors('nomeDaIteracao')}" th:errors="*{nomeDaIteracao}" class="invalid-feedback d-block"></p>
+			</div>
+			<div class="form-group">
+				<label for="numeroDeIteracoes">Quantidade de pavimentos</label> 
+				<input type="text" class="form-control" th:field="*{numeroDeIteracoes}"></input>
+				<p th:if="${#fields.hasErrors('numeroDeIteracoes')}" th:errors="*{numeroDeIteracoes}"
+					class="invalid-feedback d-block"></p>
+			</div>
+			<div class="form-group">
+				<label for="dataInicio">Data Inicial</label> 
+				<input type="date" class="form-control" th:field="*{dataInicio}"></input>
+				<p th:if="${#fields.hasErrors('dataInicio')}" th:errors="*{dataInicio}" class="invalid-feedback d-block"></p>
+			</div>
+			<button type="submit" class="btn btn-primary">Salvar</button>
+		</form>
+	</div>
+</body>
+</html>

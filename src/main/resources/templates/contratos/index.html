@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html layout:decorate="~{shared/layout}">
+<head>
+<meta charset="UTF-8">
+<title>Cadastro de contrato</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<table class="table table-hover table-striped">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Nome</th>
+					<th scope="col">Número de Iterações</th>
+					<th scope="col">Data Início</th>
+					<th scope="col">Atividades cadastradas</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="contrato, iStat : ${contratos}">
+					<td th:text="${contrato.id}" />
+					<td>
+    					<a th:href="${contrato.id}" th:text="${contrato.nome}" class="" />
+					</td>
+					<td th:text="${contrato.numeroDeIteracoes}" />
+					<td th:text="${contrato.dataInicio}" />
+					<td th:text="${#lists.size(contrato.atividades)}" />
+				</tr>
+			</tbody>
+		</table>
+		
+		<a class="btn btn-primary" href="/contratos/novo">Cadastrar Novo</a>
+	</div>
+</body>
+</html>
