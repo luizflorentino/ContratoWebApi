@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  db:
+    image: mysql:8.0.21
+    environment:
+      - MYSQL_ROOT_PASSWORD=contratoweb 
+      - MYSQL_DATABASE=contratoweb 
+      - MYSQL_USER=contratoweb 
+      - MYSQL_PASSWORD=contratoweb
+    ports:
+      - 3307:3306
+    volumes:
+      - mysql-volume
