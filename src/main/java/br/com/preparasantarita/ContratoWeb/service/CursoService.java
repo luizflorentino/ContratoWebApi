@@ -1,11 +1,13 @@
 package br.com.preparasantarita.ContratoWeb.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import br.com.preparasantarita.ContratoWeb.entity.Curso;
 import br.com.preparasantarita.ContratoWeb.repository.CursoRepository;
+import br.com.preparasantarita.ContratoWeb.request.CursoRead;
 import br.com.preparasantarita.ContratoWeb.validation.RecursoNaoEncontradoException;
 import lombok.RequiredArgsConstructor;
 
@@ -15,27 +17,32 @@ public class CursoService {
 
     private final CursoRepository cursoRepository;
 
-    public Curso save(Curso curso) {
-	return cursoRepository.save(curso);
+    public CursoRead save(Curso curso) {
+	return new CursoRead(cursoRepository.save(curso));
     }
 
-    public Curso findById(Long id) {
-	return cursoRepository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException());
+    public CursoRead findById(Long id) {
+	return new CursoRead(cursoRepository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException()));
     }
 
-    public Curso update(Long cursoId, Curso curso) {
-	Curso cursoSalvo = findById(cursoId);
+    public CursoRead update(Long cursoId, Curso curso) {
+	Curso cursoSalvo = find(cursoId);
 	curso.setId(cursoSalvo.getId());
 
-	return cursoRepository.save(curso);
+	return new CursoRead(cursoRepository.save(curso));
     }
 
     public void delete(Long cursoId) {
-	cursoRepository.delete(findById(cursoId));
+	cursoRepository.delete(find(cursoId));
     }
 
-    public List<Curso> findAll() {
-	return cursoRepository.findAll();
+    public List<CursoRead> findAll() {
+	List<Curso> cursos = cursoRepository.findAll();
+	return cursos.stream().map(CursoRead::new).collect(Collectors.toList());
+    }
+
+    private Curso find(Long id) {
+	return cursoRepository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException());
     }
 
 }

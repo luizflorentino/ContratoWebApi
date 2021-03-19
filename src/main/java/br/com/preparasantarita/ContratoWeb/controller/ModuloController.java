@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.preparasantarita.ContratoWeb.entity.Modulo;
+import br.com.preparasantarita.ContratoWeb.request.ModuloDTO;
 import br.com.preparasantarita.ContratoWeb.service.ModuloService;
 import lombok.RequiredArgsConstructor;
 
@@ -29,7 +30,7 @@ public class ModuloController {
     private final ModuloService moduloService;
 
     @PostMapping
-    public ResponseEntity<Modulo> create(@Valid @RequestBody Modulo modulo, BindingResult result) {
+    public ResponseEntity<ModuloDTO> create(@Valid @RequestBody Modulo modulo, BindingResult result) {
 
 	if (result.hasErrors()) {
 
@@ -39,12 +40,12 @@ public class ModuloController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Modulo> get(@PathVariable Long id) {
+    public ResponseEntity<ModuloDTO> get(@PathVariable Long id) {
 	return ResponseEntity.ok(moduloService.findById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Modulo> update(@PathVariable(value = "id") Long id, @Valid @RequestBody Modulo modulo,
+    public ResponseEntity<ModuloDTO> update(@PathVariable(value = "id") Long id, @Valid @RequestBody Modulo modulo,
 	    BindingResult result) throws MethodArgumentNotValidException {
 
 	if (result.hasErrors()) {
@@ -60,7 +61,7 @@ public class ModuloController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Modulo>> findAll() {
+    public ResponseEntity<List<ModuloDTO>> findAll() {
 	return ResponseEntity.ok(moduloService.findAll());
     }
 

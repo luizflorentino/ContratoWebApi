@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.preparasantarita.ContratoWeb.entity.Curso;
+import br.com.preparasantarita.ContratoWeb.request.CursoRead;
 import br.com.preparasantarita.ContratoWeb.service.CursoService;
 import lombok.RequiredArgsConstructor;
 
@@ -29,7 +30,7 @@ public class CursoController {
     private final CursoService cursoService;
 
     @PostMapping
-    public ResponseEntity<Curso> create(@Valid @RequestBody Curso curso, BindingResult result) {
+    public ResponseEntity<CursoRead> create(@Valid @RequestBody Curso curso, BindingResult result) {
 
 	if (result.hasErrors()) {
 
@@ -39,12 +40,12 @@ public class CursoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Curso> get(@PathVariable Long id) {
+    public ResponseEntity<CursoRead> get(@PathVariable Long id) {
 	return ResponseEntity.ok(cursoService.findById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Curso> update(@PathVariable(value = "id") Long id, @Valid @RequestBody Curso curso,
+    public ResponseEntity<CursoRead> update(@PathVariable(value = "id") Long id, @Valid @RequestBody Curso curso,
 	    BindingResult result) throws MethodArgumentNotValidException {
 
 	if (result.hasErrors()) {
@@ -60,7 +61,7 @@ public class CursoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Curso>> findAll() {
+    public ResponseEntity<List<CursoRead>> findAll() {
 	return ResponseEntity.ok(cursoService.findAll());
     }
 
